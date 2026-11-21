@@ -1,0 +1,25 @@
+{
+  "name": "auto-fill-pro",
+  "version": "2.0.0",
+  "description": "Privacy-first form auto-filler for job applications, scholarship portals, and campus placement drives with zero telemetry.",
+  "main": "background.js",
+  "scripts": {
+    "test": "node test/run_tests.js",
+    "lint": "node scripts/lint_check.js",
+    "package": "node scripts/package_extension.js",
+    "generate-icons": "node scripts/generate_icons.js"
+  },
+  "keywords": [
+    "chrome-extension",
+    "autofill",
+    "job-application",
+    "scholarship",
+    "privacy-first",
+    "zero-telemetry"
+  ],
+  "author": "Auto Fill Pro Team",
+  "license": "MIT",
+  "devDependencies": {
+    "playwright": "^1.50.0"
+  }
+}

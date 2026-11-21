@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Fill Pro</title>
+  <style>
+    :root {
+      --bg-primary: #FFFFFF;
+      --bg-secondary: #F8FAFC;
+      --text-primary: #0F172A;
+      --text-secondary: #64748B;
+      --border-color: #E2E8F0;
+      --accent: #2563EB;
+      --accent-hover: #1D4ED8;
+      --accent-light: #EFF6FF;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --card-bg: #FFFFFF;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark-mode {
+      --bg-primary: #0F172A;
+      --bg-secondary: #1E293B;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --border-color: #334155;
+      --accent: #3B82F6;
+      --accent-hover: #2563EB;
+      --accent-light: #1E293B;
+      --card-bg: #1E293B;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      width: 360px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 14px;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .brand img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-secondary);
+      padding: 4px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .container {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .select-input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-primary);
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Completeness meter */
+    .meter-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .meter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+
+    .meter-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .meter-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--success);
+      transition: width 0.3s ease;
+    }
+
+    .missing-fields {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* Action Buttons */
+    .btn {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border-color);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Toggles */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-primary);
+      padding: 4px 0;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--border-color);
+      transition: .3s;
+      border-radius: 20px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+
+    /* PIN prompt overlay */
+    #pin-lock-overlay {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg-primary);
+      z-index: 100;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .status-msg {
+      font-size: 12px;
+      text-align: center;
+      padding: 6px;
+      border-radius: 6px;
+      display: none;
+    }
+    .status-success {
+      background: #ECFDF5;
+      color: #065F46;
+      display: block;
+    }
+    .status-error {
+      background: #FEF2F2;
+      color: #991B1B;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="pin-lock-overlay">
+    <div style="font-size: 32px; margin-bottom: 12px;">🔒</div>
+    <h3 style="margin-bottom: 8px;">Profiles Encrypted</h3>
+    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">
+      Enter your security PIN to unlock autofill profiles.
+    </p>
+    <input type="password" id="pin-input" maxlength="8" placeholder="Enter PIN" style="
+      padding: 10px;
+      width: 140px;
+      text-align: center;
+      font-size: 18px;
+      letter-spacing: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 16px;
+      outline: none;
+    ">
+    <button class="btn btn-primary" id="btn-unlock" style="width: 140px;">Unlock</button>
+  </div>
+
+  <header>
+    <div class="brand">
+      <img src="icons/icon48.png" alt="Auto Fill Pro">
+      <span>Auto Fill Pro</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="btn-dark-toggle" title="Toggle Dark Mode">🌙</button>
+      <button class="icon-btn" id="btn-options" title="Options & Settings">⚙️</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div id="status-box" class="status-msg"></div>
+
+    <!-- Profile Selector -->
+    <div>
+      <div class="section-label">Active Profile</div>
+      <select id="profile-select" class="select-input"></select>
+    </div>
+
+    <!-- Completeness Meter -->
+    <div class="meter-card" id="meter-container">
+      <div class="meter-header">
+        <span style="font-weight: 600;">Profile Completeness</span>
+        <span id="meter-percentage" style="font-weight: 700; color: var(--success);">0%</span>
+      </div>
+      <div class="meter-bar-bg">
+        <div class="meter-bar-fill" id="meter-bar"></div>
+      </div>
+      <div class="missing-fields" id="missing-fields-text"></div>
+    </div>
+
+    <!-- Action CTAs -->
+    <button class="btn btn-primary" id="btn-fill-form">
+      <span>⚡</span> Auto Fill Current Form
+    </button>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="btn-fill-step" style="flex: 1;">
+        📑 Fill Step
+      </button>
+      <button class="btn btn-secondary" id="btn-undo" style="flex: 1;">
+        ↩️ Undo
+      </button>
+    </div>
+
+    <!-- Settings & Modes -->
+    <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
+      <div class="toggle-row">
+        <span>Preview before fill</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-preview">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <span>Overwrite existing values</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-overwrite">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary" id="btn-teach-field" style="font-size: 13px; padding: 8px;">
+      🎯 Teach This Field
+    </button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+{
+  "project": "Auto Fill Pro",
+  "version": "2.0.0",
+  "targetAccuracy": "90%+",
+  "safetyViolationTolerance": "0",
+  "phases": [
+    {
+      "id": "phase-1",
+      "title": "Real-Form Testing & Base Extension Harness",
+      "status": "in-progress",
+      "tasks": [
+        "Create initial manifest.json, fields.js, content.js, background.js, popup, options, README.txt",
+        "Set up Playwright test framework and Chromium extension launcher in /test",
+        "Create synthetic test pages: job application, scholarship with 10th/12th/UG table, React controlled inputs, custom dropdowns, Google Forms-like, multi-step form",
+        "Create 12+ real-form snapshots and test cases",
+        "Verify negative tests: passwords, OTPs, CAPTCHAs, ID cards, checkboxes, and submits are untouched",
+        "Create FAILURES.md log"
+      ]
+    },
+    {
+      "id": "phase-2",
+      "title": "Smarter Matching & Field Intelligence",
+      "status": "pending",
+      "tasks": [
+        "Implement extended synonym dictionary including Indian forms and job portals",
+        "Implement Levenshtein fuzzy matching and confidence scoring",
+        "Implement education context disambiguation",
+        "Implement Teach This Field context menu and DOM signature detection",
+        "Implement per-site custom mappings manager in options page"
+      ]
+    },
+    {
+      "id": "phase-3",
+      "title": "Hard Widgets & Complex Flows",
+      "status": "pending",
+      "tasks": [
+        "Implement React-Select, MUI Autocomplete, Select2, and Google Forms listbox handlers",
+        "Implement date pickers and country-code phone inputs",
+        "Implement multi-step form observer with 'Fill this step'",
+        "Implement repeating sections auto-fill ('Add Experience', 'Add Education')"
+      ]
+    },
+    {
+      "id": "phase-4",
+      "title": "Smart Extras",
+      "status": "pending",
+      "tasks": [
+        "Implement vendor-clean local PDF resume text parser and preview modal",
+        "Implement IndexedDB file storage for resume, photo, and marksheets",
+        "Implement DataTransfer file input attacher and manual fallback badge",
+        "Implement profile completeness meter"
+      ]
+    },
+    {
+      "id": "phase-5",
+      "title": "UI Polish & User Experience",
+      "status": "pending",
+      "tasks": [
+        "Generate icons (16, 32, 48, 128 px)",
+        "Build first-run onboarding wizard with demo form",
+        "Implement dark mode and responsive options page with accessibility",
+        "Build preview-before-fill panel and instant undo stack",
+        "Build floating quick-fill trigger button"
+      ]
+    },
+    {
+      "id": "phase-6",
+      "title": "Security, Encryption & Permissions",
+      "status": "pending",
+      "tasks": [
+        "Implement PBKDF2 + AES-GCM Web Crypto PIN lock and encrypted storage",
+        "Implement site blacklist and whitelist rules",
+        "Refactor permissions to activeTab + scripting with runtime optional host permissions",
+        "Add graceful error handling for browser internal pages"
+      ]
+    },
+    {
+      "id": "phase-7",
+      "title": "Automation & CI",
+      "status": "pending",
+      "tasks": [
+        "Add package.json scripts for test, lint, and package",
+        "Create GitHub Actions workflow (.github/workflows/test.yml)",
+        "Create clean zip packager script"
+      ]
+    },
+    {
+      "id": "phase-8",
+      "title": "Release & Monetization",
+      "status": "pending",
+      "tasks": [
+        "Write comprehensive PRIVACY.md",
+        "Write Chrome Web Store listing text and permissions justification",
+        "Create screenshot checklist",
+        "Build licensing tier module (license.js) with Free vs Pro flags and validator stub",
+        "Produce comprehensive final delivery report"
+      ]
+    }
+  ]
+}

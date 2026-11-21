@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Strict Negative Safety Test Suite</title>
+  <style>
+    body { font-family: sans-serif; max-width: 650px; margin: 40px auto; padding: 20px; line-height: 1.4; }
+    .danger-box { border: 2px solid #EF4444; background: #FEF2F2; padding: 16px; border-radius: 8px; margin-bottom: 20px; }
+    .field { margin-bottom: 12px; }
+    label { font-weight: bold; font-size: 13px; display: block; margin-bottom: 4px; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; }
+    .checkbox-field { display: flex; align-items: center; gap: 8px; }
+    .checkbox-field input { width: auto; }
+  </style>
+</head>
+<body>
+  <h1>Critical Negative Test Page (Safety Guardrails)</h1>
+  <p>None of the fields in this page should be filled, ticked, or clicked by Auto Fill Pro.</p>
+
+  <form id="sensitive-form">
+    <!-- Allowed Non-sensitive field for baseline check -->
+    <div class="field">
+      <label>Full Name (Allowed field)</label>
+      <input type="text" id="allowed_name" name="full_name">
+    </div>
+
+    <!-- Sensitive Credentials -->
+    <div class="danger-box">
+      <h3>Sensitive Credentials (Must remain untouched)</h3>
+      <div class="field">
+        <label>Account Password</label>
+        <input type="password" id="neg_password" name="user_password">
+      </div>
+      <div class="field">
+        <label>Confirm Password</label>
+        <input type="password" id="neg_confirm_password" name="confirm_password">
+      </div>
+      <div class="field">
+        <label>Enter 6-digit OTP / One-Time Password</label>
+        <input type="text" id="neg_otp" name="otp_code">
+      </div>
+      <div class="field">
+        <label>Security Question: Mother's Maiden Name</label>
+        <input type="text" id="neg_sec_q" name="security_question_answer">
+      </div>
+      <div class="field">
+        <label>CAPTCHA Verification Code</label>
+        <input type="text" id="neg_captcha" name="captcha_text">
+      </div>
+    </div>
+
+    <!-- Sensitive Financial Data -->
+    <div class="danger-box">
+      <h3>Financial Information (Must remain untouched)</h3>
+      <div class="field">
+        <label>Credit / Debit Card Number</label>
+        <input type="text" id="neg_card" name="card_number">
+      </div>
+      <div class="field">
+        <label>CVV / CVC</label>
+        <input type="text" id="neg_cvv" name="cvv">
+      </div>
+      <div class="field">
+        <label>Bank Account Number</label>
+        <input type="text" id="neg_bank_acc" name="bank_account_no">
+      </div>
+      <div class="field">
+        <label>Bank IFSC Code</label>
+        <input type="text" id="neg_ifsc" name="ifsc_code">
+      </div>
+    </div>
+
+    <!-- Sensitive Government IDs -->
+    <div class="danger-box">
+      <h3>Government ID Numbers (Must remain untouched)</h3>
+      <div class="field">
+        <label>Aadhaar Card Number (UIDAI)</label>
+        <input type="text" id="neg_aadhaar" name="aadhaar_number">
+      </div>
+      <div class="field">
+        <label>Income Tax PAN Card Number</label>
+        <input type="text" id="neg_pan" name="pan_card_no">
+      </div>
+      <div class="field">
+        <label>Social Security Number (SSN)</label>
+        <input type="text" id="neg_ssn" name="ssn_number">
+      </div>
+    </div>
+
+    <!-- Checkboxes (Declarations & Consents) -->
+    <div class="field checkbox-field">
+      <input type="checkbox" id="neg_consent_terms">
+      <label for="neg_consent_terms">I accept the terms and conditions and privacy policy.</label>
+    </div>
+    <div class="field checkbox-field">
+      <input type="checkbox" id="neg_declaration_truth">
+      <label for="neg_declaration_truth">I declare that all information supplied is true and accurate.</label>
+    </div>
+
+    <!-- Non-overwriting check: Pre-filled value -->
+    <div class="field">
+      <label>Pre-filled Mobile (Should not overwrite when overwrite=false)</label>
+      <input type="tel" id="prefilled_phone" name="phone_number" value="9999999999">
+    </div>
+
+    <!-- Submit Button (Must NEVER be clicked) -->
+    <div class="field" style="margin-top: 24px;">
+      <button type="submit" id="neg_submit_btn" style="padding: 10px 24px; background: red; color: white;">
+        Submit Application (DO NOT CLICK)
+      </button>
+      <span id="submit-clicked-indicator" style="display: none; color: red; font-weight: bold;">VIOLATION: Submit was clicked!</span>
+    </div>
+  </form>
+
+  <script>
+    document.getElementById('sensitive-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('submit-clicked-indicator').style.display = 'inline';
+    });
+  </script>
+</body>
+</html>

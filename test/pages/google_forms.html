@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Forms Layout Benchmark</title>
+  <style>
+    body { font-family: Roboto, Arial, sans-serif; max-width: 650px; margin: 40px auto; background: #ede7f6; padding: 20px; }
+    .form-header { background: #fff; padding: 24px; border-radius: 8px; border-top: 10px solid #673ab7; margin-bottom: 12px; }
+    .question-card { background: #fff; padding: 24px; border-radius: 8px; margin-bottom: 12px; }
+    .q-title { font-size: 16px; font-weight: 500; margin-bottom: 12px; }
+    input[type="text"] { width: 100%; border: none; border-bottom: 1px solid #777; padding: 8px 0; outline: none; font-size: 14px; }
+    input[type="text"]:focus { border-bottom: 2px solid #673ab7; }
+    .radio-option { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; cursor: pointer; }
+    .radio-circle { width: 18px; height: 18px; border: 2px solid #777; border-radius: 50%; display: inline-block; }
+    .radio-circle.selected { background: #673ab7; border-color: #673ab7; }
+  </style>
+</head>
+<body>
+  <div class="form-header">
+    <h1 style="margin: 0 0 8px 0;">Google Form - Candidate Registration</h1>
+    <p style="margin: 0; color: #666;">Official placement drive registration</p>
+  </div>
+
+  <div class="question-card" role="listitem">
+    <div class="q-title">Full Name of Student</div>
+    <input type="text" aria-label="Full Name of Student" name="entry.1001">
+  </div>
+
+  <div class="question-card" role="listitem">
+    <div class="q-title">Email ID</div>
+    <input type="text" aria-label="Email ID" name="entry.1002">
+  </div>
+
+  <div class="question-card" role="listitem">
+    <div class="q-title">Mobile Number (WhatsApp)</div>
+    <input type="text" aria-label="Mobile Number (WhatsApp)" name="entry.1003">
+  </div>
+
+  <div class="question-card" role="listitem">
+    <div class="q-title">Gender</div>
+    <div role="radiogroup">
+      <div class="radio-option" role="radio" aria-checked="false" data-value="Male" tabindex="0">
+        <span class="radio-circle"></span> <span>Male</span>
+      </div>
+      <div class="radio-option" role="radio" aria-checked="false" data-value="Female" tabindex="0">
+        <span class="radio-circle"></span> <span>Female</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="question-card" role="listitem">
+    <div class="q-title">Graduation College / Institute</div>
+    <input type="text" aria-label="Graduation College / Institute" name="entry.1004">
+  </div>
+
+  <div class="question-card" role="listitem">
+    <div class="q-title">Graduation CGPA / Aggregate</div>
+    <input type="text" aria-label="Graduation CGPA / Aggregate" name="entry.1005">
+  </div>
+
+  <script>
+    document.querySelectorAll('[role="radio"]').forEach(radio => {
+      radio.addEventListener('click', () => {
+        const group = radio.closest('[role="radiogroup"]');
+        group.querySelectorAll('[role="radio"]').forEach(r => {
+          r.setAttribute('aria-checked', 'false');
+          r.querySelector('.radio-circle').classList.remove('selected');
+        });
+        radio.setAttribute('aria-checked', 'true');
+        radio.querySelector('.radio-circle').classList.add('selected');
+      });
+    });
+  </script>
+</body>
+</html>

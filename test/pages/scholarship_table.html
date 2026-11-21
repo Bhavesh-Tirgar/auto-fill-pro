@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>State Scholarship Portal - Academic Details Table</title>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 30px auto; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #f0f4f8; }
+    input { width: 100%; box-sizing: border-box; padding: 6px; }
+    .form-row { display: flex; gap: 16px; margin-bottom: 12px; }
+    .form-col { flex: 1; }
+    label { font-weight: bold; font-size: 13px; display: block; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <h2>National & State Merit Scholarship Application</h2>
+
+  <div class="form-row">
+    <div class="form-col">
+      <label>Name of Candidate</label>
+      <input type="text" name="student_full_name">
+    </div>
+    <div class="form-col">
+      <label>Social Category</label>
+      <select name="caste_category">
+        <option value="">-- Select --</option>
+        <option value="General">General</option>
+        <option value="OBC">OBC</option>
+        <option value="SC">SC</option>
+        <option value="ST">ST</option>
+      </select>
+    </div>
+    <div class="form-col">
+      <label>Domicile State</label>
+      <input type="text" name="domicile_state">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-col">
+      <label>Taluka / Tehsil</label>
+      <input type="text" name="taluka_name">
+    </div>
+    <div class="form-col">
+      <label>District</label>
+      <input type="text" name="district_name">
+    </div>
+    <div class="form-col">
+      <label>Postal PIN Code</label>
+      <input type="text" name="area_pincode">
+    </div>
+  </div>
+
+  <h3>Previous Academic Record</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Qualification Level</th>
+        <th>Board / University</th>
+        <th>Passing Year</th>
+        <th>Roll Number</th>
+        <th>Percentage / CGPA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="academic-row-10th">
+        <td><strong>10th / Secondary (SSC)</strong></td>
+        <td><input type="text" name="ssc_board" aria-label="10th Board"></td>
+        <td><input type="text" name="ssc_year" aria-label="10th Passing Year"></td>
+        <td><input type="text" name="ssc_roll" aria-label="10th Roll Number"></td>
+        <td><input type="text" name="ssc_marks_pct" aria-label="10th Percentage"></td>
+      </tr>
+      <tr class="academic-row-12th">
+        <td><strong>12th / Higher Secondary (HSC)</strong></td>
+        <td><input type="text" name="hsc_board" aria-label="12th Board"></td>
+        <td><input type="text" name="hsc_year" aria-label="12th Passing Year"></td>
+        <td><input type="text" name="hsc_roll" aria-label="12th Roll Number"></td>
+        <td><input type="text" name="hsc_marks_pct" aria-label="12th Percentage"></td>
+      </tr>
+      <tr class="academic-row-grad">
+        <td><strong>Graduation / Degree (UG)</strong></td>
+        <td><input type="text" name="ug_university" aria-label="Graduation University"></td>
+        <td><input type="text" name="ug_year" aria-label="Graduation Passing Year"></td>
+        <td><input type="text" name="ug_roll" aria-label="University Roll No"></td>
+        <td><input type="text" name="ug_cgpa" aria-label="Graduation CGPA"></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

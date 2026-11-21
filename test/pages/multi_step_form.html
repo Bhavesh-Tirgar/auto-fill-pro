@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi-Step Form Wizard Benchmark</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+    .step { display: none; }
+    .step.active { display: block; }
+    .field { margin-bottom: 14px; }
+    label { font-weight: bold; font-size: 13px; display: block; margin-bottom: 4px; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; }
+    .wizard-nav { display: flex; justify-content: space-between; margin-top: 20px; }
+    .btn { padding: 8px 16px; cursor: pointer; }
+    .step-indicator { display: flex; gap: 8px; margin-bottom: 24px; }
+    .step-dot { flex: 1; height: 6px; background: #ddd; border-radius: 3px; }
+    .step-dot.active { background: #2563EB; }
+  </style>
+</head>
+<body>
+  <h2>Multi-Step Career Portal Application</h2>
+
+  <div class="step-indicator">
+    <div class="step-dot active" id="dot-1"></div>
+    <div class="step-dot" id="dot-2"></div>
+    <div class="step-dot" id="dot-3"></div>
+  </div>
+
+  <!-- Step 1: Contact -->
+  <div class="step active" id="step-1">
+    <h3>Step 1: Contact Details</h3>
+    <div class="field">
+      <label>Full Name</label>
+      <input type="text" name="full_name" id="ms_fullname">
+    </div>
+    <div class="field">
+      <label>Email Address</label>
+      <input type="email" name="email_address" id="ms_email">
+    </div>
+    <div class="field">
+      <label>Phone Number</label>
+      <input type="tel" name="phone_no" id="ms_phone">
+    </div>
+    <div class="wizard-nav">
+      <div></div>
+      <button type="button" class="btn" id="btn-next-1">Next: Address &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Address -->
+  <div class="step" id="step-2">
+    <h3>Step 2: Address</h3>
+    <div class="field">
+      <label>Address Line 1</label>
+      <input type="text" name="street_address" id="ms_addr">
+    </div>
+    <div class="field">
+      <label>City</label>
+      <input type="text" name="city_town" id="ms_city">
+    </div>
+    <div class="field">
+      <label>State</label>
+      <input type="text" name="state_province" id="ms_state">
+    </div>
+    <div class="field">
+      <label>Postal PIN Code</label>
+      <input type="text" name="pincode" id="ms_pin">
+    </div>
+    <div class="wizard-nav">
+      <button type="button" class="btn" id="btn-prev-2">&larr; Back</button>
+      <button type="button" class="btn" id="btn-next-2">Next: Professional &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Professional -->
+  <div class="step" id="step-3">
+    <h3>Step 3: Professional Experience</h3>
+    <div class="field">
+      <label>Current Company</label>
+      <input type="text" name="company" id="ms_comp">
+    </div>
+    <div class="field">
+      <label>Current Job Title</label>
+      <input type="text" name="title" id="ms_title">
+    </div>
+    <div class="field">
+      <label>Key Skills</label>
+      <input type="text" name="skills" id="ms_skills">
+    </div>
+    <div class="wizard-nav">
+      <button type="button" class="btn" id="btn-prev-3">&larr; Back</button>
+      <button type="submit" class="btn" id="btn-submit">Submit Application</button>
+    </div>
+  </div>
+
+  <script>
+    function goToStep(n) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.step-dot').forEach(d => d.classList.remove('active'));
+
+      document.getElementById('step-' + n).classList.add('active');
+      for (let i = 1; i <= n; i++) {
+        document.getElementById('dot-' + i).classList.add('active');
+      }
+    }
+
+    document.getElementById('btn-next-1').addEventListener('click', () => goToStep(2));
+    document.getElementById('btn-prev-2').addEventListener('click', () => goToStep(1));
+    document.getElementById('btn-next-2').addEventListener('click', () => goToStep(3));
+    document.getElementById('btn-prev-3').addEventListener('click', () => goToStep(2));
+  </script>
+</body>
+</html>

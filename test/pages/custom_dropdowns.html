@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Dropdowns Benchmark</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+    .widget-box { margin-bottom: 24px; padding: 16px; border: 1px solid #ddd; border-radius: 8px; }
+    label { font-weight: bold; margin-bottom: 8px; display: block; }
+
+    /* React-Select Simulation */
+    .Select-control { border: 1px solid #ccc; padding: 8px; border-radius: 4px; cursor: pointer; position: relative; }
+    .Select-menu { display: none; border: 1px solid #ccc; background: #fff; position: absolute; width: 100%; top: 100%; left: 0; z-index: 10; }
+    .Select-menu.open { display: block; }
+    .Select-option { padding: 8px; cursor: pointer; }
+    .Select-option:hover { background: #eee; }
+
+    /* MUI Autocomplete Simulation */
+    .MuiAutocomplete-root { position: relative; }
+    .MuiAutocomplete-input { width: 100%; padding: 8px; box-sizing: border-box; }
+    .MuiAutocomplete-popper { display: none; position: absolute; width: 100%; background: #fff; border: 1px solid #ccc; z-index: 10; }
+    .MuiAutocomplete-popper.open { display: block; }
+    .MuiAutocomplete-option { padding: 8px; cursor: pointer; }
+    .MuiAutocomplete-option:hover { background: #eee; }
+
+    /* Google Forms Listbox Simulation */
+    div[role="listbox"] { border: 1px solid #ccc; padding: 8px; cursor: pointer; background: #fff; }
+    .gf-dropdown-popup { display: none; border: 1px solid #ccc; background: #fff; }
+    .gf-dropdown-popup.open { display: block; }
+    div[role="option"] { padding: 8px; cursor: pointer; }
+    div[role="option"]:hover { background: #eee; }
+  </style>
+</head>
+<body>
+  <h2>Custom Dropdown Widgets</h2>
+
+  <!-- React-Select Simulation -->
+  <div class="widget-box">
+    <label>Gender (React-Select)</label>
+    <div class="Select-control" id="react-select-gender">
+      <div class="Select-placeholder" id="rs-val">Select Gender...</div>
+      <div class="Select-menu" id="rs-menu">
+        <div class="Select-option" data-value="Male">Male</div>
+        <div class="Select-option" data-value="Female">Female</div>
+        <div class="Select-option" data-value="Other">Other</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUI Autocomplete Simulation -->
+  <div class="widget-box">
+    <label>Social Category (MUI Autocomplete)</label>
+    <div class="MuiAutocomplete-root" id="mui-cat-root">
+      <input type="text" class="MuiAutocomplete-input" id="mui-input" placeholder="Search category...">
+      <div class="MuiAutocomplete-popper" id="mui-popper">
+        <div class="MuiAutocomplete-option">General</div>
+        <div class="MuiAutocomplete-option">OBC</div>
+        <div class="MuiAutocomplete-option">SC</div>
+        <div class="MuiAutocomplete-option">ST</div>
+        <div class="MuiAutocomplete-option">EWS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Forms Listbox Simulation -->
+  <div class="widget-box">
+    <label>Domicile State (Google Forms Listbox)</label>
+    <div role="listbox" id="gf-listbox" aria-label="Domicile State" tabindex="0">
+      <span id="gf-display">Choose state...</span>
+    </div>
+    <div class="gf-dropdown-popup" id="gf-popup">
+      <div role="option" data-value="Maharashtra">Maharashtra</div>
+      <div role="option" data-value="Delhi">Delhi</div>
+      <div role="option" data-value="Karnataka">Karnataka</div>
+      <div role="option" data-value="Gujarat">Gujarat</div>
+    </div>
+  </div>
+
+  <script>
+    // Wire React-Select click handlers
+    const rsCtrl = document.getElementById('react-select-gender');
+    const rsMenu = document.getElementById('rs-menu');
+    rsCtrl.addEventListener('click', (e) => {
+      if (e.target.classList.contains('Select-option')) {
+        document.getElementById('rs-val').textContent = e.target.textContent;
+        rsMenu.classList.remove('open');
+      } else {
+        rsMenu.classList.toggle('open');
+      }
+    });
+
+    // Wire MUI Autocomplete
+    const muiInput = document.getElementById('mui-input');
+    const muiPopper = document.getElementById('mui-popper');
+    muiInput.addEventListener('focus', () => muiPopper.classList.add('open'));
+    muiPopper.addEventListener('click', (e) => {
+      if (e.target.classList.contains('MuiAutocomplete-option')) {
+        muiInput.value = e.target.textContent;
+        muiPopper.classList.remove('open');
+      }
+    });
+
+    // Wire Google Forms Listbox
+    const gfListbox = document.getElementById('gf-listbox');
+    const gfPopup = document.getElementById('gf-popup');
+    gfListbox.addEventListener('click', () => gfPopup.classList.toggle('open'));
+    gfPopup.addEventListener('click', (e) => {
+      if (e.target.getAttribute('role') === 'option') {
+        document.getElementById('gf-display').textContent = e.target.getAttribute('data-value');
+        gfPopup.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

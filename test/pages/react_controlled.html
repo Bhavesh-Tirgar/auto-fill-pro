@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React Controlled Form Simulation</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+    .field { margin-bottom: 14px; }
+    label { font-weight: bold; font-size: 13px; display: block; margin-bottom: 4px; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; }
+    .state-display { background: #f4f4f4; padding: 12px; margin-top: 20px; border-radius: 6px; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <h2>React Synthetic Event Controlled Inputs</h2>
+  <div id="root">
+    <div class="field">
+      <label>Full Name</label>
+      <input type="text" id="react_name" autocomplete="name">
+    </div>
+    <div class="field">
+      <label>Email Address</label>
+      <input type="email" id="react_email" autocomplete="email">
+    </div>
+    <div class="field">
+      <label>Phone Number</label>
+      <input type="tel" id="react_phone" autocomplete="tel">
+    </div>
+    <div class="field">
+      <label>City</label>
+      <input type="text" id="react_city" autocomplete="address-level2">
+    </div>
+  </div>
+
+  <div class="state-display" id="debug-state">
+    Internal React State:<br>
+    name: <span id="st-name">empty</span><br>
+    email: <span id="st-email">empty</span><br>
+    phone: <span id="st-phone">empty</span><br>
+    city: <span id="st-city">empty</span>
+  </div>
+
+  <script>
+    // Simulate React 16+ input value tracker
+    function setupReactInput(inputEl, stateKey) {
+      const tracker = {
+        value: inputEl.value
+      };
+      inputEl._valueTracker = tracker;
+
+      inputEl.addEventListener('input', (e) => {
+        document.getElementById('st-' + stateKey).textContent = e.target.value;
+      });
+    }
+
+    setupReactInput(document.getElementById('react_name'), 'name');
+    setupReactInput(document.getElementById('react_email'), 'email');
+    setupReactInput(document.getElementById('react_phone'), 'phone');
+    setupReactInput(document.getElementById('react_city'), 'city');
+  </script>
+</body>
+</html>
